@@ -40,8 +40,8 @@ printPicture();
 let direction = true;
 let autoplay;
 startAutoplay();
-document.querySelector(".content").addEventListener("mouseover", stopCarousel);
-document.querySelector(".content").addEventListener("mouseout", startAutoplay);
+// document.querySelector(".content").addEventListener("mouseover", stopCarousel);
+// document.querySelector(".content").addEventListener("mouseout", startAutoplay);
 
 // set default active class to  a single picture element
 let activePictureIndex = 0;
@@ -50,16 +50,22 @@ bonusArray[activePictureIndex].classList.add("active-thumbnails");
 
 // change picture on click
 chevronDown.addEventListener("click", function(){
-    clearInterval(autoplay);
+    // clearInterval(autoplay);
     clickDown();
     direction = true;
-    startAutoplay();
+    if(spanBtn.classList.contains("auto")) {
+        clearInterval(autoplay)
+        startAutoplay();
+    }
 })
 chevronUp.addEventListener("click", function(){
-    clearInterval(autoplay);
+    // clearInterval(autoplay);
     clickUp();
     direction = false;
-    startAutoplay();
+    if(spanBtn.classList.contains("auto")) {
+        clearInterval(autoplay)
+        startAutoplay();
+    }
 })
 
 // autoplay button
@@ -69,12 +75,13 @@ const spanBtn = document.getElementById("status")
 // addEventListener
 autoBtn.addEventListener("click", function(){
     spanBtn.classList.toggle("auto");
-    if(spanBtn.classList.contains("auto")) {
+    if(!spanBtn.classList.contains("auto")) {
+        spanBtn.innerHTML = "OFF";
+        clearInterval(autoplay);
+    } else
+    {
         document.querySelector(".auto").innerHTML = "ON";
         startAutoplay();
-    } else
-    {spanBtn.innerHTML = "OFF";
-    clearInterval(autoplay);
 }
 })
 
@@ -131,9 +138,9 @@ function startAutoplay (){
     }
     return autoplay
 }
-function stopCarousel(){
-    clearInterval(autoplay);
-} 
+// function stopCarousel(){
+//     clearInterval(autoplay);
+// } 
 
 
 
